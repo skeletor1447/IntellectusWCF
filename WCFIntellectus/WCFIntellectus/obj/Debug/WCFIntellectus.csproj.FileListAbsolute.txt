@@ -1,0 +1,12 @@
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\WCFIntellectus.dll.config
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\WCFIntellectus.dll
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\WCFIntellectus.pdb
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\EntityFramework.dll
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\EntityFramework.SqlServer.dll
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\EntityFramework.xml
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\bin\EntityFramework.SqlServer.xml
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.csprojAssemblyReference.cache
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.csproj.CoreCompileInputs.cache
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.csproj.CopyComplete
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.dll
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.pdb

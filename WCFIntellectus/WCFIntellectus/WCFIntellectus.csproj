@@ -114,6 +114,7 @@
     </Compile>
     <Compile Include="Utileria\MultipleRespuesta.cs" />
     <Compile Include="Utileria\UnicaRespuesta.cs" />
+    <Compile Include="Utileria\Validaciones.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
