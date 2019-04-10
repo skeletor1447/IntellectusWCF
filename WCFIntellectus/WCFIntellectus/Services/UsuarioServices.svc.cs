@@ -14,6 +14,32 @@ namespace WCFIntellectus.Services
     public class UsuarioServices : IUsuarioServices
     {
         WCFIntellectus.Model.IntellectusdbEntities intellectusdbEntities = new Model.IntellectusdbEntities();
+
+        public InsertarRespuesta Registrar(Usuario usuario)
+        {
+            InsertarRespuesta insertarRespuesta = new InsertarRespuesta();
+
+            try
+            {
+                WCFIntellectus.Model.tblusuario tblusuario = new Model.tblusuario() { Correo = usuario.Correo, IdUsuario = -1, Nick = usuario.Nick, Password = usuario.Password };
+
+                intellectusdbEntities.tblusuario.Add(tblusuario);
+                intellectusdbEntities.SaveChanges();
+
+                insertarRespuesta.Id = tblusuario.IdUsuario;
+
+                insertarRespuesta.Error = false;
+            }
+            catch(Exception ex)
+            {
+                insertarRespuesta.Id = -1;
+                insertarRespuesta.Error = true;
+                insertarRespuesta.Errores = new Dictionary<string, string>();
+                insertarRespuesta.Errores.Add("Error", ex.Message);
+            }
+
+            return insertarRespuesta;
+        }
         public UnicaRespuesta<Usuario> ConsultarPorCorreoYPassword(string correo, string password)
         {
             UnicaRespuesta<Usuario> respuesta = new UnicaRespuesta<Usuario>();
@@ -44,8 +70,6 @@ namespace WCFIntellectus.Services
                 respuesta.Error = true;
                 respuesta.Errores.Add("CampoErroneo", "Correo o password incorrecto.");
             }
-            
-
             return respuesta;
         }
     }

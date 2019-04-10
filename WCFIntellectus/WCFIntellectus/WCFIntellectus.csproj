@@ -112,6 +112,9 @@
     <Compile Include="Services\UsuarioServices.svc.cs">
       <DependentUpon>UsuarioServices.svc</DependentUpon>
     </Compile>
+    <Compile Include="Utileria\ActualizarRespuesta.cs" />
+    <Compile Include="Utileria\EliminarRespuesta.cs" />
+    <Compile Include="Utileria\InsertarRespuesta.cs" />
     <Compile Include="Utileria\MultipleRespuesta.cs" />
     <Compile Include="Utileria\UnicaRespuesta.cs" />
     <Compile Include="Utileria\Validaciones.cs" />

@@ -15,6 +15,7 @@ namespace WCFIntellectus.Entidades
         public String Correo { get; set; }
         [DataMember]
         public String Nick { get; set; }
-        
+        [DataMember]
+        public String Password { get; set; }
     }
 }

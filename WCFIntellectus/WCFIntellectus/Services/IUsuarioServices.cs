@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WCFIntellectus.Entidades;
 
 namespace WCFIntellectus.Services
 {
@@ -13,5 +14,7 @@ namespace WCFIntellectus.Services
     {
         [OperationContract]
         Utileria.UnicaRespuesta<Entidades.Usuario> ConsultarPorCorreoYPassword(String correo, String password);
+        [OperationContract]
+        Utileria.InsertarRespuesta Registrar(Usuario usuario);
     }
 }
