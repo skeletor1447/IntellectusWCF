@@ -18,5 +18,7 @@ namespace WCFIntellectus.Services
         Utileria.InsertarRespuesta Registrar(Usuario usuario);
         [OperationContract]
         Utileria.UnicaRespuesta<Entidades.Usuario> Consultar(long id);
+        [OperationContract]
+        Utileria.MultipleRespuesta<Entidades.Usuario> ConsultarPorBusqueda(String busqueda);
     }
 }

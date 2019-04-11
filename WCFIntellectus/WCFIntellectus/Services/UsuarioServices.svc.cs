@@ -93,5 +93,26 @@ namespace WCFIntellectus.Services
             }
             return respuesta;
         }
+
+        public MultipleRespuesta<Usuario> ConsultarPorBusqueda(string busqueda)
+        {
+            MultipleRespuesta<Usuario> respuesta = new MultipleRespuesta<Usuario>();
+
+            try
+            {
+                List<Usuario> usuarios = intellectusdbEntities.tblusuario.Where(x => x.Nick.Contains(busqueda)).Select(x => new Usuario() { ID = x.IdUsuario, Nick = x.Nick, Correo = x.Correo, Password = x.Password }).ToList();
+                respuesta.Entidades = usuarios;
+                respuesta.Error = false;
+            }
+            catch(Exception ex)
+            {
+                respuesta.Entidades = null;
+                respuesta.Error = true;
+                respuesta.Errores.Add("Error",ex.Message);
+            }
+            
+
+            return respuesta;
+        }
     }
 }
