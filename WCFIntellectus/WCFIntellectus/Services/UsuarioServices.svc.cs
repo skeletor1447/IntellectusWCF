@@ -72,5 +72,26 @@ namespace WCFIntellectus.Services
             }
             return respuesta;
         }
+
+        public UnicaRespuesta<Usuario> Consultar(long id)
+        {
+            UnicaRespuesta<Usuario> respuesta = new UnicaRespuesta<Usuario>();
+            respuesta.Errores = new Dictionary<string, string>();
+
+            try
+            {
+                WCFIntellectus.Model.tblusuario usuariotbl = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == (int)id).Single();
+                Usuario usuario = new Usuario() { ID = usuariotbl.IdUsuario, Correo = usuariotbl.Correo, Nick = usuariotbl.Nick };
+
+                respuesta.Error = false;
+                respuesta.Entidad = usuario;
+            }
+            catch(Exception ex)
+            {
+                respuesta.Error = true;
+                respuesta.Errores.Add("",ex.Message);
+            }
+            return respuesta;
+        }
     }
 }

@@ -16,5 +16,7 @@ namespace WCFIntellectus.Services
         Utileria.UnicaRespuesta<Entidades.Usuario> ConsultarPorCorreoYPassword(String correo, String password);
         [OperationContract]
         Utileria.InsertarRespuesta Registrar(Usuario usuario);
+        [OperationContract]
+        Utileria.UnicaRespuesta<Entidades.Usuario> Consultar(long id);
     }
 }
