@@ -21,7 +21,7 @@ namespace WCFIntellectus.Services
 
             try
             {
-                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitante == soliciante).Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitante == soliciante && x.Estado != "Aceptado").Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
 
                 multipleRespuesta.Entidades = solicitudAmigos;
                 multipleRespuesta.Error = false;
@@ -33,6 +33,27 @@ namespace WCFIntellectus.Services
                 multipleRespuesta.Errores.Add("Error", ex.Message);
             }
 
+
+            return multipleRespuesta;
+        }
+
+        public MultipleRespuesta<SolicitudAmistad> ConsultarSolicitudesRecividas(int soliciante)
+        {
+            MultipleRespuesta<SolicitudAmistad> multipleRespuesta = new MultipleRespuesta<SolicitudAmistad>();
+
+            try
+            {
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitado == soliciante && x.Estado != "Aceptado").Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
+
+                multipleRespuesta.Entidades = solicitudAmigos;
+                multipleRespuesta.Error = false;
+            }
+            catch (Exception ex)
+            {
+                multipleRespuesta.Error = true;
+                multipleRespuesta.Errores = new Dictionary<string, string>();
+                multipleRespuesta.Errores.Add("Error", ex.Message);
+            }
 
             return multipleRespuesta;
         }
