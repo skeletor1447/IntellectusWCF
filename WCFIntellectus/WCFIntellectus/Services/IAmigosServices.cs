@@ -13,5 +13,7 @@ namespace WCFIntellectus.Services
     {
         [OperationContract]
         Utileria.InsertarRespuesta SolicitudDeAmistad(int solicitante,int solicitado);
+        [OperationContract]
+        Utileria.MultipleRespuesta<Entidades.SolicitudAmistad> ConsultarSolicitudesEnviadas(int soliciante);
     }
 }

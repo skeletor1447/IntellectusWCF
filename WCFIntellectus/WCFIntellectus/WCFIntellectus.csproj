@@ -85,6 +85,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\SolicitudAmistad.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Model\IntellectusModel.Context.cs">
       <AutoGen>True</AutoGen>

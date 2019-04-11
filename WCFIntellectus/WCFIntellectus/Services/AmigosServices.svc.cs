@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WCFIntellectus.Entidades;
 using WCFIntellectus.Utileria;
 
 namespace WCFIntellectus.Services
@@ -13,6 +14,29 @@ namespace WCFIntellectus.Services
     public class AmigosServices : IAmigosServices
     {
         Model.IntellectusdbEntities intellectusdbEntities = new Model.IntellectusdbEntities();
+
+        public MultipleRespuesta<SolicitudAmistad> ConsultarSolicitudesEnviadas(int soliciante)
+        {
+            MultipleRespuesta<SolicitudAmistad> multipleRespuesta = new MultipleRespuesta<SolicitudAmistad>();
+
+            try
+            {
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitante == soliciante).Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
+
+                multipleRespuesta.Entidades = solicitudAmigos;
+                multipleRespuesta.Error = false;
+            }
+            catch(Exception ex)
+            {
+                multipleRespuesta.Error = true;
+                multipleRespuesta.Errores = new Dictionary<string, string>();
+                multipleRespuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+            return multipleRespuesta;
+        }
+
         public InsertarRespuesta SolicitudDeAmistad(int solicitante, int solicitado)
         {
             InsertarRespuesta respuesta = new InsertarRespuesta();
