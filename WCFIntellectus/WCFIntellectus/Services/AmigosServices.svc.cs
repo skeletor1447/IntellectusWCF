@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using WCFIntellectus.Utileria;
 
 namespace WCFIntellectus.Services
 {
@@ -11,6 +12,29 @@ namespace WCFIntellectus.Services
     // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione AmigosServices.svc o AmigosServices.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class AmigosServices : IAmigosServices
     {
-        
+        Model.IntellectusdbEntities intellectusdbEntities = new Model.IntellectusdbEntities();
+        public InsertarRespuesta SolicitudDeAmistad(int solicitante, int solicitado)
+        {
+            InsertarRespuesta respuesta = new InsertarRespuesta();
+
+            Model.tblsolicitudamistad tblsolicitudamistad = new Model.tblsolicitudamistad() { IdSolicitudAmistad = -1, IdSolicitante = solicitante, IdSolicitado = solicitado, Estado = "Pendiente"};
+
+            try
+            {
+                intellectusdbEntities.tblsolicitudamistad.Add(tblsolicitudamistad);
+                intellectusdbEntities.SaveChanges();
+                respuesta.Error = false;
+                respuesta.Id = tblsolicitudamistad.IdSolicitudAmistad;
+            }
+            catch(Exception ex)
+            {
+                respuesta.Error = true;
+                respuesta.Errores = new Dictionary<string, string>();
+                respuesta.Errores.Add("Error", ex.Message);
+            }
+
+            
+            return respuesta;
+        }
     }
 }

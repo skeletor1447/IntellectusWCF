@@ -69,15 +69,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Model\IntellectosModel.Context.tt">
+    <Content Include="Model\IntellectusModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>IntellectosModel.Context.cs</LastGenOutput>
-      <DependentUpon>IntellectosModel.edmx</DependentUpon>
+      <DependentUpon>IntellectusModel.edmx</DependentUpon>
+      <LastGenOutput>IntellectusModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Model\IntellectosModel.tt">
+    <Content Include="Model\IntellectusModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IntellectosModel.edmx</DependentUpon>
-      <LastGenOutput>IntellectosModel.cs</LastGenOutput>
+      <DependentUpon>IntellectusModel.edmx</DependentUpon>
+      <LastGenOutput>IntellectusModel.cs</LastGenOutput>
     </Content>
     <Content Include="Service1.svc" />
     <Content Include="Services\AmigosServices.svc" />
@@ -86,23 +86,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\Usuario.cs" />
-    <Compile Include="Model\IntellectosModel.Context.cs">
+    <Compile Include="Model\IntellectusModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IntellectosModel.Context.tt</DependentUpon>
+      <DependentUpon>IntellectusModel.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\IntellectosModel.cs">
+    <Compile Include="Model\IntellectusModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IntellectosModel.tt</DependentUpon>
+      <DependentUpon>IntellectusModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Model\IntellectosModel.Designer.cs">
+    <Compile Include="Model\IntellectusModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IntellectosModel.edmx</DependentUpon>
+      <DependentUpon>IntellectusModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\tblsolicitudamistad.cs">
+      <DependentUpon>IntellectusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Model\tblusuario.cs">
-      <DependentUpon>IntellectosModel.tt</DependentUpon>
+      <DependentUpon>IntellectusModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
@@ -128,12 +131,12 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Model\IntellectosModel.edmx">
+    <EntityDeploy Include="Model\IntellectusModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IntellectosModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>IntellectusModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Model\IntellectosModel.edmx.diagram">
-      <DependentUpon>IntellectosModel.edmx</DependentUpon>
+    <Content Include="Model\IntellectusModel.edmx.diagram">
+      <DependentUpon>IntellectusModel.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Web.Debug.config">

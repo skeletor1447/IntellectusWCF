@@ -25,6 +25,7 @@ namespace WCFIntellectus.Model
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<tblsolicitudamistad> tblsolicitudamistad { get; set; }
         public virtual DbSet<tblusuario> tblusuario { get; set; }
     }
 }

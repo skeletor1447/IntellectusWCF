@@ -11,6 +11,7 @@ namespace WCFIntellectus.Services
     [ServiceContract]
     public interface IAmigosServices
     {
-       
+        [OperationContract]
+        Utileria.InsertarRespuesta SolicitudDeAmistad(int solicitante,int solicitado);
     }
 }
