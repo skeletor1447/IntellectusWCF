@@ -58,6 +58,31 @@ namespace WCFIntellectus.Services
             return multipleRespuesta;
         }
 
+        public EliminarRespuesta<SolicitudAmistad> EliminarSolicitud(int idsolicitudamistad)
+        {
+            EliminarRespuesta< SolicitudAmistad> respuesta = new EliminarRespuesta<SolicitudAmistad>();
+
+          
+
+            try
+            {
+                Model.tblsolicitudamistad tblsolicitudamistad = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitudAmistad == idsolicitudamistad).Single();
+                intellectusdbEntities.tblsolicitudamistad.Remove(tblsolicitudamistad);
+                intellectusdbEntities.SaveChanges();
+                respuesta.Error = false;
+                respuesta.Id = tblsolicitudamistad.IdSolicitudAmistad;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Error = true;
+                respuesta.Errores = new Dictionary<string, string>();
+                respuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+            return respuesta;
+        }
+
         public InsertarRespuesta SolicitudDeAmistad(int solicitante, int solicitado)
         {
             InsertarRespuesta respuesta = new InsertarRespuesta();

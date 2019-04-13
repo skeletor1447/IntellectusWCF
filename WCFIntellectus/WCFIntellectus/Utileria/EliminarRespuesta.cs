@@ -10,6 +10,8 @@ namespace WCFIntellectus.Utileria
     public class EliminarRespuesta<T>
     {
         [DataMember]
+        public long Id { get; set; }
+        [DataMember]
         public bool Error { get; set; }
         [DataMember]
         public Dictionary<String, String> Errores { get; set; }
