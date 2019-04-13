@@ -63,7 +63,6 @@ namespace WCFIntellectus.Services
             EliminarRespuesta< SolicitudAmistad> respuesta = new EliminarRespuesta<SolicitudAmistad>();
 
           
-
             try
             {
                 Model.tblsolicitudamistad tblsolicitudamistad = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitudAmistad == idsolicitudamistad).Single();
@@ -71,6 +70,29 @@ namespace WCFIntellectus.Services
                 intellectusdbEntities.SaveChanges();
                 respuesta.Error = false;
                 respuesta.Id = tblsolicitudamistad.IdSolicitudAmistad;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Error = true;
+                respuesta.Errores = new Dictionary<string, string>();
+                respuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+            return respuesta;
+        }
+
+        public ActualizarRespuesta<SolicitudAmistad> AceptarSolicitud(int idsolicitudamistad)
+        {
+            ActualizarRespuesta<SolicitudAmistad> respuesta = new ActualizarRespuesta<SolicitudAmistad>();
+
+            try
+            {
+                Model.tblsolicitudamistad tblsolicitudamistad = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitudAmistad == idsolicitudamistad).Single();
+                tblsolicitudamistad.Estado = "Amigos";
+                intellectusdbEntities.SaveChanges();
+                respuesta.Error = false;
+                respuesta.Id = idsolicitudamistad;
             }
             catch (Exception ex)
             {

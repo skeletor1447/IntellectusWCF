@@ -19,5 +19,7 @@ namespace WCFIntellectus.Services
         Utileria.MultipleRespuesta<Entidades.SolicitudAmistad> ConsultarSolicitudesRecibidas(int soliciante);
         [OperationContract]
         Utileria.EliminarRespuesta<Entidades.SolicitudAmistad> EliminarSolicitud(int idsolicitudamistad);
+        [OperationContract]
+        Utileria.ActualizarRespuesta<Entidades.SolicitudAmistad> AceptarSolicitud(int idsolicitudamistad);
     }
 }
