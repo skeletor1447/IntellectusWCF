@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="Entidades\SolicitudAmistad.cs" />
     <Compile Include="Entidades\Usuario.cs" />
+    <Compile Include="Entidades\UsuarioAmistad.cs" />
     <Compile Include="Model\IntellectusModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -7,15 +7,13 @@ using System.Web;
 namespace WCFIntellectus.Entidades
 {
     [DataContract]
-    public class SolicitudAmistad
+    public class UsuarioAmistad
     {
         [DataMember]
-        public long IdSolicitudAmistad { get; set; }
+        public Usuario Usuario { get; set; }
         [DataMember]
-        public long IdSolicitante { get; set; }
+        public SolicitudAmistad SolicitudAmistad { get; set; }
         [DataMember]
-        public long IdSolicitado { get; set; }
-        [DataMember]
-        public String Estado { get; set; }
+        public bool EsSolicitante { get; set; }
     }
 }

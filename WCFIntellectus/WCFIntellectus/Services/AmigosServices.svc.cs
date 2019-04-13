@@ -21,7 +21,7 @@ namespace WCFIntellectus.Services
 
             try
             {
-                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitante == soliciante && x.Estado != "Aceptado").Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitante == soliciante).Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado, Estado = x.Estado}).ToList();
 
                 multipleRespuesta.Entidades = solicitudAmigos;
                 multipleRespuesta.Error = false;
@@ -37,13 +37,13 @@ namespace WCFIntellectus.Services
             return multipleRespuesta;
         }
 
-        public MultipleRespuesta<SolicitudAmistad> ConsultarSolicitudesRecividas(int soliciante)
+        public MultipleRespuesta<SolicitudAmistad> ConsultarSolicitudesRecibidas(int soliciante)
         {
             MultipleRespuesta<SolicitudAmistad> multipleRespuesta = new MultipleRespuesta<SolicitudAmistad>();
 
             try
             {
-                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitado == soliciante && x.Estado != "Aceptado").Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado }).ToList();
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => x.IdSolicitado == soliciante).Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado, Estado = x.Estado }).ToList();
 
                 multipleRespuesta.Entidades = solicitudAmigos;
                 multipleRespuesta.Error = false;

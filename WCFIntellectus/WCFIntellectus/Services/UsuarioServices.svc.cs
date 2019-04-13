@@ -94,23 +94,62 @@ namespace WCFIntellectus.Services
             return respuesta;
         }
 
-        public MultipleRespuesta<Usuario> ConsultarPorBusqueda(string busqueda)
+        public MultipleRespuesta<UsuarioAmistad> ConsultarPorBusqueda(long idClient,string busqueda)
         {
-            MultipleRespuesta<Usuario> respuesta = new MultipleRespuesta<Usuario>();
-
+            MultipleRespuesta<UsuarioAmistad> respuesta = new MultipleRespuesta<UsuarioAmistad>();
+            AmigosServices amigosServices = new AmigosServices();
             try
             {
                 List<Usuario> usuarios = intellectusdbEntities.tblusuario.Where(x => x.Nick.Contains(busqueda)).Select(x => new Usuario() { ID = x.IdUsuario, Nick = x.Nick, Correo = x.Correo, Password = x.Password }).ToList();
-                respuesta.Entidades = usuarios;
+                List<SolicitudAmistad> solicitudAmistadesRecibidas = amigosServices.ConsultarSolicitudesRecibidas((int)idClient).Entidades;
+                List<SolicitudAmistad> solicitudAmistadesEnviadas = amigosServices.ConsultarSolicitudesEnviadas((int)idClient).Entidades;
+
+                List<UsuarioAmistad> listaUsuariosAmistad = usuarios.Select(x => new UsuarioAmistad() { Usuario = x, SolicitudAmistad = null}).ToList();
+
+                List<SolicitudAmistad> listaMatchEnvidas = solicitudAmistadesEnviadas.Where(y => listaUsuariosAmistad.Exists(x => y.IdSolicitado == x.Usuario.ID)).ToList();
+                List<SolicitudAmistad> listaMatchRecibidas = solicitudAmistadesRecibidas.Where(y => listaUsuariosAmistad.Exists(x => y.IdSolicitante == x.Usuario.ID)).ToList();
+
+
+                foreach (var usuario in listaUsuariosAmistad)
+                {
+                    foreach(var enviado in listaMatchEnvidas)
+                    {
+                        
+                        if(usuario.Usuario.ID == enviado.IdSolicitado)
+                        {
+                            usuario.SolicitudAmistad = enviado;
+                            listaMatchEnvidas.Remove(enviado);
+                            usuario.EsSolicitante = true;
+                            break;
+                        }
+                    }
+
+                    foreach (var recibido in listaMatchRecibidas)
+                    {
+
+                        if (usuario.Usuario.ID == recibido.IdSolicitante)
+                        {
+                            usuario.SolicitudAmistad = recibido;
+                            listaMatchRecibidas.Remove(recibido);
+                            usuario.EsSolicitante = false;
+                            break;
+                        }
+
+                    }
+                }
+
+                respuesta.Entidades = listaUsuariosAmistad;
                 respuesta.Error = false;
             }
             catch(Exception ex)
             {
                 respuesta.Entidades = null;
                 respuesta.Error = true;
+                respuesta.Errores = new Dictionary<string, string>();
                 respuesta.Errores.Add("Error",ex.Message);
             }
             
+
 
             return respuesta;
         }
