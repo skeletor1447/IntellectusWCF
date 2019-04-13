@@ -112,6 +112,8 @@ namespace WCFIntellectus.Services
 
                 foreach (var usuario in listaUsuariosAmistad)
                 {
+                    usuario.EsSolicitante = null;
+
                     foreach(var enviado in listaMatchEnvidas)
                     {
                         
