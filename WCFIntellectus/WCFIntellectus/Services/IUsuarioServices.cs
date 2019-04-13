@@ -19,6 +19,8 @@ namespace WCFIntellectus.Services
         [OperationContract]
         Utileria.UnicaRespuesta<Entidades.Usuario> Consultar(long id);
         [OperationContract]
-        Utileria.MultipleRespuesta<UsuarioAmistad> ConsultarPorBusqueda(long idCliente,String busqueda);
+        Utileria.MultipleRespuesta<UsuarioAmistad> ConsultarPorBusqueda(long idCliente, String busqueda);
+        [OperationContract]
+        Utileria.MultipleRespuesta<Entidades.UsuarioAmistad> ConsultarSolicitudesPorCliente(int idcliente);
     }
 }

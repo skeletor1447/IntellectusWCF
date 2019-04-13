@@ -155,5 +155,46 @@ namespace WCFIntellectus.Services
 
             return respuesta;
         }
+
+        public MultipleRespuesta<UsuarioAmistad> ConsultarSolicitudesPorCliente(int idcliente)
+        {
+            MultipleRespuesta<UsuarioAmistad> respuesta = new MultipleRespuesta<UsuarioAmistad>();
+            AmigosServices amigosServices = new AmigosServices();
+            try
+            {
+                
+                List<SolicitudAmistad> solicitudAmistadesRecibidas = amigosServices.ConsultarSolicitudesRecibidas(idcliente).Entidades;
+                List<SolicitudAmistad> solicitudAmistadesEnviadas = amigosServices.ConsultarSolicitudesEnviadas(idcliente).Entidades;
+
+
+                List<UsuarioAmistad> usuarioAmistadLista = new List<UsuarioAmistad>();
+                
+                foreach(var recibida in solicitudAmistadesRecibidas)
+                {
+                    WCFIntellectus.Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == recibida.IdSolicitante).Single();
+                    usuarioAmistadLista.Add(new UsuarioAmistad() {  SolicitudAmistad = recibida, EsSolicitante = false, Usuario = new Usuario() {  ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password} });
+                }
+
+                foreach (var enviada in solicitudAmistadesEnviadas)
+                {
+                    WCFIntellectus.Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == enviada.IdSolicitado).Single();
+                    usuarioAmistadLista.Add(new UsuarioAmistad() { SolicitudAmistad = enviada, EsSolicitante = true, Usuario = new Usuario() { ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password } });
+                }
+
+                respuesta.Entidades = usuarioAmistadLista;
+                respuesta.Error = false;
+            }
+            catch (Exception ex)
+            {
+                respuesta.Entidades = null;
+                respuesta.Error = true;
+                respuesta.Errores = new Dictionary<string, string>();
+                respuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+
+            return respuesta;
+        }
     }
 }
