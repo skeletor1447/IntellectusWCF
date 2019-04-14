@@ -128,5 +128,26 @@ namespace WCFIntellectus.Services
             
             return respuesta;
         }
+
+        public MultipleRespuesta<SolicitudAmistad> ConsultarAmigos(int solicitante)
+        {
+            MultipleRespuesta<SolicitudAmistad> multipleRespuesta = new MultipleRespuesta<SolicitudAmistad>();
+
+            try
+            {
+                List<SolicitudAmistad> solicitudAmigos = intellectusdbEntities.tblsolicitudamistad.Where(x => (x.IdSolicitado == solicitante || x.IdSolicitante == solicitante) && x.Estado == "Amigos").Select(x => new SolicitudAmistad() { IdSolicitudAmistad = x.IdSolicitudAmistad, IdSolicitante = x.IdSolicitante, IdSolicitado = x.IdSolicitado, Estado = x.Estado }).ToList();
+
+                multipleRespuesta.Entidades = solicitudAmigos;
+                multipleRespuesta.Error = false;
+            }
+            catch (Exception ex)
+            {
+                multipleRespuesta.Error = true;
+                multipleRespuesta.Errores = new Dictionary<string, string>();
+                multipleRespuesta.Errores.Add("Error", ex.Message);
+            }
+
+            return multipleRespuesta;
+        }
     }
 }

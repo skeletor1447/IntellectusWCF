@@ -196,5 +196,55 @@ namespace WCFIntellectus.Services
 
             return respuesta;
         }
+
+        public MultipleRespuesta<UsuarioAmistad> ConsultarAmigos(int idcliente)
+        {
+            MultipleRespuesta<UsuarioAmistad> multipleRespuesta = new MultipleRespuesta<UsuarioAmistad>();
+
+
+            try
+            {
+                AmigosServices amigosServices = new AmigosServices();
+
+                MultipleRespuesta<SolicitudAmistad> amigos = amigosServices.ConsultarAmigos(idcliente);
+
+                List<UsuarioAmistad> listaAmigos = new List<UsuarioAmistad>();
+
+                if(!amigos.Error)
+                {
+                    foreach(var amigo in amigos.Entidades)
+                    {
+                        if(amigo.IdSolicitante == idcliente)
+                        {
+                            Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == amigo.IdSolicitado).Single();
+                            listaAmigos.Add(new UsuarioAmistad() { Usuario = new Usuario() { ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password }, EsSolicitante = true, SolicitudAmistad = amigo });
+                        }
+                        else
+                        {
+                            Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == amigo.IdSolicitante).Single();
+                            listaAmigos.Add(new UsuarioAmistad() { Usuario = new Usuario() { ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password }, EsSolicitante = false, SolicitudAmistad = amigo });
+                        }
+                    }
+
+                    multipleRespuesta.Entidades = listaAmigos;
+                    multipleRespuesta.Error = false;
+                }
+                else
+                {
+                    multipleRespuesta.Error = true;
+                    multipleRespuesta.Errores = new Dictionary<string, string>();
+                    multipleRespuesta.Errores.Add("Error", amigos.Errores["Error"]);
+                }
+            }
+            catch(Exception ex)
+            {
+                multipleRespuesta.Error = true;
+                multipleRespuesta.Errores = new Dictionary<string, string>();
+                multipleRespuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+            return multipleRespuesta;
+        }
     }
 }

@@ -22,5 +22,7 @@ namespace WCFIntellectus.Services
         Utileria.MultipleRespuesta<UsuarioAmistad> ConsultarPorBusqueda(long idCliente, String busqueda);
         [OperationContract]
         Utileria.MultipleRespuesta<Entidades.UsuarioAmistad> ConsultarSolicitudesPorCliente(int idcliente);
+        [OperationContract]
+        Utileria.MultipleRespuesta<UsuarioAmistad> ConsultarAmigos(int idcliente);
     }
 }
