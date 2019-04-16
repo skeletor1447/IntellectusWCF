@@ -81,10 +81,13 @@
     </Content>
     <Content Include="Service1.svc" />
     <Content Include="Services\AmigosServices.svc" />
+    <Content Include="Services\PerfilServices.svc" />
     <Content Include="Services\UsuarioServices.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entidades\Perfil.cs" />
+    <Compile Include="Entidades\PerfilCompuesto.cs" />
     <Compile Include="Entidades\SolicitudAmistad.cs" />
     <Compile Include="Entidades\Usuario.cs" />
     <Compile Include="Entidades\UsuarioAmistad.cs" />
@@ -121,7 +124,11 @@
       <DependentUpon>AmigosServices.svc</DependentUpon>
     </Compile>
     <Compile Include="Services\IAmigosServices.cs" />
+    <Compile Include="Services\IPerfilServices.cs" />
     <Compile Include="Services\IUsuarioServices.cs" />
+    <Compile Include="Services\PerfilServices.svc.cs">
+      <DependentUpon>PerfilServices.svc</DependentUpon>
+    </Compile>
     <Compile Include="Services\UsuarioServices.svc.cs">
       <DependentUpon>UsuarioServices.svc</DependentUpon>
     </Compile>
