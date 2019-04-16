@@ -4,7 +4,20 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="IntellectusdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IntellectusdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblperfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="NombreReal" Type="varchar" MaxLength="100" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="Avatar" Type="varbinary(max)" />
+          <Property Name="Disponibilidad" Type="varchar" MaxLength="100" />
+          <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+          <Property Name="Online" Type="bit" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblsolicitudamistad">
           <Key>
             <PropertyRef Name="IdSolicitudAmistad" />
@@ -24,14 +37,27 @@
           <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
         </EntityType>
         <EntityContainer Name="IntellectusdbModelStoreContainer">
+          <EntitySet Name="tblperfil" EntityType="Self.tblperfil" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblsolicitudamistad" EntityType="Self.tblsolicitudamistad" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblusuario" EntityType="Self.tblusuario" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="IntellectusdbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblperfil">
+          <Key>
+            <PropertyRef Name="IdPerfil" />
+          </Key>
+          <Property Name="IdPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <Property Name="NombreReal" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="Avatar" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Disponibilidad" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaRegistro" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Online" Type="Boolean" Nullable="false" />
+        </EntityType>
         <EntityType Name="tblsolicitudamistad">
           <Key>
             <PropertyRef Name="IdSolicitudAmistad" />
@@ -51,6 +77,7 @@
           <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityContainer Name="IntellectusdbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblperfil" EntityType="Self.tblperfil" />
           <EntitySet Name="tblsolicitudamistad" EntityType="Self.tblsolicitudamistad" />
           <EntitySet Name="tblusuario" EntityType="Self.tblusuario" />
         </EntityContainer>
@@ -60,6 +87,20 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="IntellectusdbModelStoreContainer" CdmEntityContainer="IntellectusdbEntities">
+          <EntitySetMapping Name="tblperfil">
+            <EntityTypeMapping TypeName="IntellectusdbModel.tblperfil">
+              <MappingFragment StoreEntitySet="tblperfil">
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="NombreReal" ColumnName="NombreReal" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+                <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+                <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+                <ScalarProperty Name="Online" ColumnName="Online" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="tblsolicitudamistad">
             <EntityTypeMapping TypeName="IntellectusdbModel.tblsolicitudamistad">
               <MappingFragment StoreEntitySet="tblsolicitudamistad">

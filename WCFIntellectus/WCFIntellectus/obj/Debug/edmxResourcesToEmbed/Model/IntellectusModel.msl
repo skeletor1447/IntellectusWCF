@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="IntellectusdbModelStoreContainer" CdmEntityContainer="IntellectusdbEntities">
+    <EntitySetMapping Name="tblperfil">
+      <EntityTypeMapping TypeName="IntellectusdbModel.tblperfil">
+        <MappingFragment StoreEntitySet="tblperfil">
+          <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+          <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+          <ScalarProperty Name="NombreReal" ColumnName="NombreReal" />
+          <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+          <ScalarProperty Name="Avatar" ColumnName="Avatar" />
+          <ScalarProperty Name="Disponibilidad" ColumnName="Disponibilidad" />
+          <ScalarProperty Name="FechaRegistro" ColumnName="FechaRegistro" />
+          <ScalarProperty Name="Online" ColumnName="Online" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tblsolicitudamistad">
       <EntityTypeMapping TypeName="IntellectusdbModel.tblsolicitudamistad">
         <MappingFragment StoreEntitySet="tblsolicitudamistad">

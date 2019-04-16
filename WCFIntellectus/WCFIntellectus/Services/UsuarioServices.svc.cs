@@ -21,14 +21,39 @@ namespace WCFIntellectus.Services
 
             try
             {
-                WCFIntellectus.Model.tblusuario tblusuario = new Model.tblusuario() { Correo = usuario.Correo, IdUsuario = -1, Nick = usuario.Nick, Password = usuario.Password };
 
-                intellectusdbEntities.tblusuario.Add(tblusuario);
-                intellectusdbEntities.SaveChanges();
+                using (var transaccion = intellectusdbEntities.Database.BeginTransaction())
+                {
+                    WCFIntellectus.Model.tblusuario tblusuario = new Model.tblusuario() { Correo = usuario.Correo, IdUsuario = -1, Nick = usuario.Nick, Password = usuario.Password };
 
-                insertarRespuesta.Id = tblusuario.IdUsuario;
+                    try
+                    {
 
-                insertarRespuesta.Error = false;
+                        intellectusdbEntities.tblusuario.Add(tblusuario);
+                        intellectusdbEntities.SaveChanges();
+
+                        WCFIntellectus.Model.tblperfil tblperfil = new Model.tblperfil() { IdPerfil = -1, IdUsuario = tblusuario.IdUsuario, Online = false, FechaRegistro = DateTime.Now};
+
+                        intellectusdbEntities.tblperfil.Add(tblperfil);
+                        intellectusdbEntities.SaveChanges();
+
+                        insertarRespuesta.Id = tblusuario.IdUsuario;
+
+                        insertarRespuesta.Error = false;
+
+                        transaccion.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        insertarRespuesta.Id = -1;
+                        insertarRespuesta.Error = true;
+                        insertarRespuesta.Errores = new Dictionary<string, string>();
+                        insertarRespuesta.Errores.Add("Error", ex.Message);
+
+                        transaccion.Rollback();
+                    }
+                }
+                
             }
             catch(Exception ex)
             {

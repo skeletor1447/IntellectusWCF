@@ -1,5 +1,18 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="IntellectusdbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblperfil">
+    <Key>
+      <PropertyRef Name="IdPerfil" />
+    </Key>
+    <Property Name="IdPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="IdUsuario" Type="int" Nullable="false" />
+    <Property Name="NombreReal" Type="varchar" MaxLength="100" />
+    <Property Name="Descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="Avatar" Type="varbinary(max)" />
+    <Property Name="Disponibilidad" Type="varchar" MaxLength="100" />
+    <Property Name="FechaRegistro" Type="datetime" Nullable="false" />
+    <Property Name="Online" Type="bit" Nullable="false" />
+  </EntityType>
   <EntityType Name="tblsolicitudamistad">
     <Key>
       <PropertyRef Name="IdSolicitudAmistad" />
@@ -19,6 +32,7 @@
     <Property Name="Password" Type="varchar" MaxLength="100" Nullable="false" />
   </EntityType>
   <EntityContainer Name="IntellectusdbModelStoreContainer">
+    <EntitySet Name="tblperfil" EntityType="Self.tblperfil" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblsolicitudamistad" EntityType="Self.tblsolicitudamistad" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblusuario" EntityType="Self.tblusuario" Schema="dbo" store:Type="Tables" />
   </EntityContainer>

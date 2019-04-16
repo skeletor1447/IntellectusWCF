@@ -103,6 +103,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>IntellectusModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\tblperfil.cs">
+      <DependentUpon>IntellectusModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Model\tblsolicitudamistad.cs">
       <DependentUpon>IntellectusModel.tt</DependentUpon>
     </Compile>
