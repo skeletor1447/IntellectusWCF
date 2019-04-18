@@ -13,5 +13,7 @@ namespace WCFIntellectus.Services
     {
         [OperationContract]
         Utileria.UnicaRespuesta<Entidades.PerfilCompuesto> ConsultarPerfilCompuesto(long idCliente);
+        [OperationContract]
+        Utileria.ActualizarRespuesta<Entidades.PerfilCompuesto> ActualizarPerfilCompuesto(Entidades.PerfilCompuesto perfilCompuesto);
     }
 }

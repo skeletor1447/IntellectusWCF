@@ -45,5 +45,52 @@ namespace WCFIntellectus.Services
             }
             return respuesta;
         }
+        public ActualizarRespuesta<PerfilCompuesto> ActualizarPerfilCompuesto(PerfilCompuesto perfilCompuesto)
+        {
+            ActualizarRespuesta<PerfilCompuesto> actualizarRespuesta = new ActualizarRespuesta<PerfilCompuesto>();
+            actualizarRespuesta.Errores = new Dictionary<string, string>();
+            try
+            {
+                Perfil p = perfilCompuesto.Perfil;
+                Usuario u = perfilCompuesto.Usuario;
+                WCFIntellectus.Model.tblperfil tblperfil = new Model.tblperfil() { IdPerfil = (int)p.IdPerfil, Avatar = p.Avatar, Descripcion = p.Descripcion, Disponibilidad = p.Disponibilidad, FechaRegistro = p.FechaRegistro, IdUsuario = (int)p.IdUsuario, NombreReal = p.NombreReal, Online = p.Online };
+                WCFIntellectus.Model.tblusuario tblusuario = new Model.tblusuario() { IdUsuario = (int)u.ID, Correo = u.Correo, Nick = u.Nick, Password = u.Password};
+
+                using (var dbTransacciones = intellectusdbEntities.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var entidadPerfil = intellectusdbEntities.tblperfil.Find(tblperfil.IdPerfil);
+                        var entidadUsuario = intellectusdbEntities.tblusuario.Find(tblusuario.IdUsuario);
+
+                        intellectusdbEntities.Entry(entidadPerfil).CurrentValues.SetValues(tblperfil);
+                        intellectusdbEntities.Entry(entidadUsuario).CurrentValues.SetValues(tblusuario);
+
+                        intellectusdbEntities.SaveChanges();
+
+                        dbTransacciones.Commit();
+
+
+                        actualizarRespuesta.Error = true;
+                        actualizarRespuesta.Entidad = perfilCompuesto;
+                        actualizarRespuesta.Id = tblusuario.IdUsuario;
+
+                    }
+                    catch (Exception es)
+                    {
+                        dbTransacciones.Rollback();
+                        actualizarRespuesta.Errores.Add("Error", es.Message);
+                        actualizarRespuesta.Error = true;
+                    }
+                }
+            }
+            catch(Exception es)
+            {
+                actualizarRespuesta.Errores.Add("Error", es.Message);
+                actualizarRespuesta.Error = true;
+            }
+
+            return actualizarRespuesta;
+        }
     }
 }
