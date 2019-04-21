@@ -10,3 +10,5 @@ C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj
 C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.csproj.CopyComplete
 C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.dll
 C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.pdb
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.Properties.Resources.resources
+C:\Users\JesúsEmilio\Documents\IntellectusWCF\WCFIntellectus\WCFIntellectus\obj\Debug\WCFIntellectus.csproj.GenerateResource.cache

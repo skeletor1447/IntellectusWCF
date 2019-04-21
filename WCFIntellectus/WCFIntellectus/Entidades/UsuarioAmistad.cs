@@ -15,5 +15,7 @@ namespace WCFIntellectus.Entidades
         public SolicitudAmistad SolicitudAmistad { get; set; }
         [DataMember]
         public bool? EsSolicitante { get; set; }
+        [DataMember]
+        public byte[] Avatar { get; set; }
     }
 }

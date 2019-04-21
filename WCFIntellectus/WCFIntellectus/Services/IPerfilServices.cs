@@ -15,5 +15,7 @@ namespace WCFIntellectus.Services
         Utileria.UnicaRespuesta<Entidades.PerfilCompuesto> ConsultarPerfilCompuesto(long idCliente);
         [OperationContract]
         Utileria.ActualizarRespuesta<Entidades.PerfilCompuesto> ActualizarPerfilCompuesto(Entidades.PerfilCompuesto perfilCompuesto);
+        [OperationContract]
+        Utileria.MultipleRespuesta<Entidades.PerfilCompuesto> ObtenerListaAmigosPerfilCompuesto(long idCliente);
     }
 }

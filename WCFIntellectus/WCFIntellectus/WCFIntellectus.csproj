@@ -79,6 +79,7 @@
       <DependentUpon>IntellectusModel.edmx</DependentUpon>
       <LastGenOutput>IntellectusModel.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\icons8-user-avatar-48.png" />
     <Content Include="Service1.svc" />
     <Content Include="Services\AmigosServices.svc" />
     <Content Include="Services\PerfilServices.svc" />
@@ -115,6 +116,11 @@
     </Compile>
     <Compile Include="Model\tblusuario.cs">
       <DependentUpon>IntellectusModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
@@ -165,6 +171,12 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

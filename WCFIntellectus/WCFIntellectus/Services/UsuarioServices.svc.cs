@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
@@ -32,7 +33,10 @@ namespace WCFIntellectus.Services
                         intellectusdbEntities.tblusuario.Add(tblusuario);
                         intellectusdbEntities.SaveChanges();
 
-                        WCFIntellectus.Model.tblperfil tblperfil = new Model.tblperfil() { IdPerfil = -1, IdUsuario = tblusuario.IdUsuario, Online = false, FechaRegistro = DateTime.Now};
+                        ImageConverter imageConverter = new ImageConverter();
+                        byte[] bytes = (byte[])imageConverter.ConvertTo(Properties.Resources.avatarPorDefecto, typeof(byte[]));
+
+                        WCFIntellectus.Model.tblperfil tblperfil = new Model.tblperfil() { IdPerfil = -1, IdUsuario = tblusuario.IdUsuario, Online = false, FechaRegistro = DateTime.Now, Avatar = bytes};
 
                         intellectusdbEntities.tblperfil.Add(tblperfil);
                         intellectusdbEntities.SaveChanges();
@@ -65,7 +69,7 @@ namespace WCFIntellectus.Services
 
             return insertarRespuesta;
         }
-        public UnicaRespuesta<Usuario> ConsultarPorCorreoYPassword(string correo, string password)
+        public UnicaRespuesta<Usuario> LoguearPorCorreoYPassword(string correo, string password)
         {
             UnicaRespuesta<Usuario> respuesta = new UnicaRespuesta<Usuario>();
             respuesta.Errores = new Dictionary<string, string>();
@@ -85,7 +89,11 @@ namespace WCFIntellectus.Services
             try
             {
                 WCFIntellectus.Model.tblusuario usuariotbl = intellectusdbEntities.tblusuario.Where(x => x.Correo == correo && x.Password == password).Single();
+                intellectusdbEntities.tblperfil.Where(x => x.IdUsuario == usuariotbl.IdUsuario).Single().Online = true;
                 Usuario usuario = new Usuario() { ID = usuariotbl.IdUsuario, Correo = usuariotbl.Correo, Nick = usuariotbl.Nick};
+
+
+                intellectusdbEntities.SaveChanges();
 
                 respuesta.Error = false;
                 respuesta.Entidad = usuario;
@@ -145,6 +153,8 @@ namespace WCFIntellectus.Services
                         if(usuario.Usuario.ID == enviado.IdSolicitado)
                         {
                             usuario.SolicitudAmistad = enviado;
+                            WCFIntellectus.Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdPerfil == usuario.Usuario.ID).Single();
+                            usuario.Avatar = tblperfil.Avatar;
                             listaMatchEnvidas.Remove(enviado);
                             usuario.EsSolicitante = true;
                             break;
@@ -158,6 +168,8 @@ namespace WCFIntellectus.Services
                         {
                             usuario.SolicitudAmistad = recibido;
                             listaMatchRecibidas.Remove(recibido);
+                            WCFIntellectus.Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdPerfil == usuario.Usuario.ID).Single();
+                            usuario.Avatar = tblperfil.Avatar;
                             usuario.EsSolicitante = false;
                             break;
                         }
@@ -197,13 +209,15 @@ namespace WCFIntellectus.Services
                 foreach(var recibida in solicitudAmistadesRecibidas)
                 {
                     WCFIntellectus.Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == recibida.IdSolicitante).Single();
-                    usuarioAmistadLista.Add(new UsuarioAmistad() {  SolicitudAmistad = recibida, EsSolicitante = false, Usuario = new Usuario() {  ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password} });
+                    WCFIntellectus.Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdPerfil == tblusuario.IdUsuario).Single();
+                    usuarioAmistadLista.Add(new UsuarioAmistad() {  SolicitudAmistad = recibida, EsSolicitante = false, Usuario = new Usuario() {  ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password}, Avatar = tblperfil.Avatar });
                 }
 
                 foreach (var enviada in solicitudAmistadesEnviadas)
                 {
                     WCFIntellectus.Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == enviada.IdSolicitado).Single();
-                    usuarioAmistadLista.Add(new UsuarioAmistad() { SolicitudAmistad = enviada, EsSolicitante = true, Usuario = new Usuario() { ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password } });
+                    WCFIntellectus.Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdPerfil == tblusuario.IdUsuario).Single();
+                    usuarioAmistadLista.Add(new UsuarioAmistad() { SolicitudAmistad = enviada, EsSolicitante = true, Usuario = new Usuario() { ID = tblusuario.IdUsuario, Correo = tblusuario.Correo, Nick = tblusuario.Nick, Password = tblusuario.Password }, Avatar = tblperfil.Avatar});
                 }
 
                 respuesta.Entidades = usuarioAmistadLista;
@@ -271,5 +285,7 @@ namespace WCFIntellectus.Services
 
             return multipleRespuesta;
         }
+
+       
     }
 }

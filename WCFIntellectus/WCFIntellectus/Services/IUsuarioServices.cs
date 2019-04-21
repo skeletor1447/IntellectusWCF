@@ -13,7 +13,7 @@ namespace WCFIntellectus.Services
     public interface IUsuarioServices
     {
         [OperationContract]
-        Utileria.UnicaRespuesta<Entidades.Usuario> ConsultarPorCorreoYPassword(String correo, String password);
+        Utileria.UnicaRespuesta<Entidades.Usuario> LoguearPorCorreoYPassword(String correo, String password);
         [OperationContract]
         Utileria.InsertarRespuesta Registrar(Usuario usuario);
         [OperationContract]

@@ -92,5 +92,65 @@ namespace WCFIntellectus.Services
 
             return actualizarRespuesta;
         }
+
+        public MultipleRespuesta<PerfilCompuesto> ObtenerListaAmigosPerfilCompuesto(long idCliente)
+        {
+            MultipleRespuesta<PerfilCompuesto> multipleRespuesta = new MultipleRespuesta<PerfilCompuesto>();
+
+
+            try
+            {
+                AmigosServices amigosServices = new AmigosServices();
+
+                MultipleRespuesta<SolicitudAmistad> amigos = amigosServices.ConsultarAmigos((int)idCliente);
+
+                List<PerfilCompuesto> listaAmigos = new List<PerfilCompuesto>();
+
+                if (!amigos.Error)
+                {
+                    foreach (var amigo in amigos.Entidades)
+                    {
+                        if (amigo.IdSolicitante == idCliente)//obtener el id del amigo mediante el idsolicitado
+                        {
+                            Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == amigo.IdSolicitado).Single();
+                            Usuario usuario = new Usuario() {  Correo = tblusuario.Correo, ID = tblusuario.IdUsuario, Nick = tblusuario.Nick, Password = tblusuario.Password};
+
+                            Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdUsuario == amigo.IdSolicitado).Single();
+                            Perfil perfil = new Perfil() {IdUsuario = tblperfil.IdUsuario, Avatar = tblperfil.Avatar, Descripcion = tblperfil.Descripcion, Disponibilidad = tblperfil.Disponibilidad, FechaRegistro = tblperfil.FechaRegistro, IdPerfil = tblperfil.IdPerfil, NombreReal = tblperfil.NombreReal, Online = tblperfil.Online };
+
+                            listaAmigos.Add(new PerfilCompuesto() { Usuario = usuario, Perfil =  perfil});
+                        }
+                        else
+                        {
+                            Model.tblusuario tblusuario = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == amigo.IdSolicitante).Single();
+                            Usuario usuario = new Usuario() { Correo = tblusuario.Correo, ID = tblusuario.IdUsuario, Nick = tblusuario.Nick, Password = tblusuario.Password };
+
+                            Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdUsuario == amigo.IdSolicitante).Single();
+                            Perfil perfil = new Perfil() { IdUsuario = tblperfil.IdUsuario, Avatar = tblperfil.Avatar, Descripcion = tblperfil.Descripcion, Disponibilidad = tblperfil.Disponibilidad, FechaRegistro = tblperfil.FechaRegistro, IdPerfil = tblperfil.IdPerfil, NombreReal = tblperfil.NombreReal, Online = tblperfil.Online };
+
+                            listaAmigos.Add(new PerfilCompuesto() { Usuario = usuario, Perfil = perfil });
+                        }
+                    }
+
+                    multipleRespuesta.Entidades = listaAmigos;
+                    multipleRespuesta.Error = false;
+                }
+                else
+                {
+                    multipleRespuesta.Error = true;
+                    multipleRespuesta.Errores = new Dictionary<string, string>();
+                    multipleRespuesta.Errores.Add("Error", amigos.Errores["Error"]);
+                }
+            }
+            catch (Exception ex)
+            {
+                multipleRespuesta.Error = true;
+                multipleRespuesta.Errores = new Dictionary<string, string>();
+                multipleRespuesta.Errores.Add("Error", ex.Message);
+            }
+
+
+            return multipleRespuesta;
+        }
     }
 }
