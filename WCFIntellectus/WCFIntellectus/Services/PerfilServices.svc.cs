@@ -26,7 +26,7 @@ namespace WCFIntellectus.Services
                 PerfilCompuesto perfilCompuesto = new PerfilCompuesto();
 
                 WCFIntellectus.Model.tblusuario usuariotbl = intellectusdbEntities.tblusuario.Where(x => x.IdUsuario == idCliente).Single();
-                Usuario usuario = new Usuario() { ID = usuariotbl.IdUsuario, Correo = usuariotbl.Correo, Nick = usuariotbl.Nick };
+                Usuario usuario = new Usuario() { ID = usuariotbl.IdUsuario, Correo = usuariotbl.Correo, Nick = usuariotbl.Nick, Password = usuariotbl.Password };
 
 
                 WCFIntellectus.Model.tblperfil tblperfil = intellectusdbEntities.tblperfil.Where(x => x.IdUsuario == idCliente).Single();
@@ -71,7 +71,7 @@ namespace WCFIntellectus.Services
                         dbTransacciones.Commit();
 
 
-                        actualizarRespuesta.Error = true;
+                        actualizarRespuesta.Error = false;
                         actualizarRespuesta.Entidad = perfilCompuesto;
                         actualizarRespuesta.Id = tblusuario.IdUsuario;
 
